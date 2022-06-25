@@ -40,27 +40,22 @@ def create_notes(title, author, meta):
 				with open(child_note_path, "x") as new_f: #create new file
 					new_f.write(child_body) # add the body of the note
 					new_f.write("\n\n\n" + new_metadata) # add metadata
-					new_f.close()
 				
 				file_array[index] = "![[" + child_title + "]]" #update line in parent note
-		f.close()
 
 	with open(target_file, "w") as f: # write changes to the original file
 		f.writelines(file_array)
-		f.close()
 
 def printResult():
 	with open(target_file, "r") as f:
 		for line in f:
 			print(line, end='')
 		print()
-		f.close()
 
 def debug(text,num):
 	path = "/Users/munirv3/Documents/Main Obsidian Vault/TEXT" + str(num) + ".txt"
 	with open(path, "x") as f:
 		f.write(text)
-		f.close()
 
 # note_title = "The Advent of Divine Justice.md" # file to add author names to end
 # author = "Shoghi Effendi"
