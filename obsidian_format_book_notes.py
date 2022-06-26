@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-import sys
-import pathlib #used to get working directory
 from pathlib import Path #used to get working directory
-import re #regex
 
 # read each line of file
 	# if line contains ;; ... ;; split into body, title, and tags

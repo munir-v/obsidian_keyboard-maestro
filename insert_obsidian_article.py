@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-import sys
-import pathlib #used to get working directory
 from pathlib import Path #used to get working directory
 
 articles_path = Path("/Users/munirv3/Documents/Main Obsidian Vault/Home/025 Articles.md")
