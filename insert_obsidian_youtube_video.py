@@ -81,10 +81,9 @@ def filter_video_title(video_title): # remove illegal symbols
 	video_title = video_title.replace('#','')
 	return video_title
 
-def get_link():
+def get_link(file_name):
 	vault_name = "Main Obsidian Vault"
 	vault_name = vault_name.replace(' ','%20')
-	file_name = "025 Articles"
 	file_name = file_name.replace(' ','%20')
 
 	# provide link to note
@@ -101,7 +100,7 @@ else:
 	video_title = get_video_title()
 	update_podcast_page(video_title)
 	make_new_podcast_page(video_title)
-	print(get_link())
+	print(get_link(video_title))
 
 
 
