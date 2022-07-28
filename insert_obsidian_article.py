@@ -3,10 +3,8 @@ from string import Template
 import os
 from pathlib import Path #used to get working directory
 import os
-import pwd
 
-user = pwd.getpwuid(os.getuid()).pw_name
-articles_path = Path('/Users/' + user + '/Documents/Main Obsidian Vault/Home/025 Articles.md')
+articles_path = Path(os.path.expanduser('~/Documents/Main Obsidian Vault/Home/025 Articles.md'))
 
 def get_headers():
 	with open(articles_path, "r") as f:
@@ -57,7 +55,7 @@ def update_article_page(article_title):
 		f.writelines(file)
 
 def make_new_article(article_title):
-	base_path = '/Users/' + user + '/Documents/Main Obsidian Vault/' + article_title + '.md'
+	base_path = os.path.expanduser('~/Documents/Main Obsidian Vault/' + article_title + '.md')
 	with open(base_path, "x") as f: # write new file
 		metadata = str(os.environ["KMVAR_Metadata"])
 		f.write(metadata)

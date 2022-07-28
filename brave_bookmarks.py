@@ -1,9 +1,7 @@
 import json
 import os
-import pwd
-user = pwd.getpwuid(os.getuid()).pw_name
 
-json_file_loc = '/Users/' + user + '/Library/Application Support/BraveSoftware/Brave-Browser/Default/Bookmarks'
+json_file_loc = os.path.expanduser('~/Library/Application Support/BraveSoftware/Brave-Browser/Default/Bookmarks')
 
 def print_bookmarks():
     with open(json_file_loc, "r") as j:
