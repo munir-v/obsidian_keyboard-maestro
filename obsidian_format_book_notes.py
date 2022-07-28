@@ -2,6 +2,10 @@
 
 import os
 from pathlib import Path #used to get working directory
+import os
+import pwd
+
+user = pwd.getpwuid(os.getuid()).pw_name
 
 # read each line of file
 	# if line contains ;; ... ;; split into body, title, and tags
@@ -50,14 +54,14 @@ def printResult():
 		print()
 
 def debug(text,num):
-	path = "/Users/munirv3/Documents/Main Obsidian Vault/TEXT" + str(num) + ".txt"
+	path = '/Users/' + user + '/Documents/Main Obsidian Vault/TEXT' + str(num) + '.txt'
 	with open(path, "x") as f:
 		f.write(text)
 
 # note_title = "The Advent of Divine Justice.md" # file to add author names to end
 # author = "Shoghi Effendi"
 # notes_metadata = "Source type: #book\nTitle: The Advent of Divine Justice\nAuthor: Shoghi Effendi\nTopics:\nGenre: #bahai\nDate created: Friday, January 21st 2022, 7:33 am"
-# current_path = Path("/Users/munirv3/Downloads/")
+# current_path = Path('/Users/' + user + '/Downloads/')
 
 note_title = str(os.environ["KMVAR_NoteTitle"]) + ".md"
 author = str(os.environ["KMVAR_AuthorName"])

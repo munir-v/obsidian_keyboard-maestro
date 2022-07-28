@@ -2,14 +2,17 @@
 import os
 from pathlib import Path
 from string import Template #used to get working directory
+import os
+import pwd
 
+user = pwd.getpwuid(os.getuid()).pw_name
 audio_page = int(os.environ["KMVAR_Podcasts"])
 video_title = str(os.environ["KMVAR_VideoTitle"])
 
 if audio_page == 1:
-	audio_path = Path("/Users/munirv3/Documents/Main Obsidian Vault/Home/015 Podcasts and Audio.md")
+	audio_path = Path('/Users/' + user + '/Documents/Main Obsidian Vault/Home/015 Podcasts and Audio.md')
 else:
-	audio_path = Path("/Users/munirv3/Documents/Main Obsidian Vault/Home/020 Baha'i Audio.md")
+	audio_path = Path('/Users/' + user + "/Documents/Main Obsidian Vault/Home/020 Baha'i Audio.md")
 
 def get_headers():
 	with open(audio_path, "r") as f:
@@ -60,7 +63,7 @@ def update_podcast_page(video_title):
 		f.writelines(file)
 
 def make_new_podcast_page(video_title):
-	base_path = "/Users/munirv3/Documents/Main Obsidian Vault/" + video_title + ".md"
+	base_path = '/Users/' + user + '/Documents/Main Obsidian Vault/' + video_title + ".md"
 	with open(base_path, "x") as f: # write new file
 		metadata = str(os.environ["KMVAR_Metadata"])
 		f.write(metadata)
