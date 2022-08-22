@@ -3,9 +3,9 @@ import re
 import json
 from pprint import pprint
 
-file_loc1 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/part1.txt')
-file_loc2 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/part2.txt')
-
+file_loc1 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part1.txt')
+file_loc2 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part2.txt')
+json_file_loc = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/kindle_exports.json')
 
 with open(file_loc1, "r") as f:
     file1 = f.readlines()
@@ -13,6 +13,7 @@ with open(file_loc1, "r") as f:
 
 with open(file_loc2, "r") as f:
     file2 = f.readlines()
+
 
 def get_quotes_and_vocab(file):
     notes_list = []
@@ -59,12 +60,11 @@ def main():
     print(vocab)
 
 # main()
-json_file_path = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/kindle_exports.json')
 
-with open(json_file_path, "r") as jf:
-    json_file = json.load(jf)
+with open(json_file_loc, "w") as j:
+    # json_file = json.load(j)
+    data = {'vocab':''}
+    json.dump(data,j)
 
-def create_json():
-    json_file
-
-create_json()
+# todo
+# add ankify tag
