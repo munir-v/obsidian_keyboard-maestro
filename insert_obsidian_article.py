@@ -2,7 +2,7 @@
 from string import Template
 import os
 from pathlib import Path #used to get working directory
-import os
+import re
 
 articles_path = Path(os.path.expanduser('~/Documents/Main Obsidian Vault/Home/025 Articles.md'))
 
@@ -66,14 +66,7 @@ def get_article_title():
 	return article_title
 
 def filter_article_title(article_title): # remove illegal symbols
-	article_title = article_title.replace('/','')
-	article_title = article_title.replace('\\','')
-	article_title = article_title.replace(':',' -')
-	article_title = article_title.replace('|',' - ')
-	article_title = article_title.replace('[','')
-	article_title = article_title.replace(']','')
-	article_title = article_title.replace('^','')
-	article_title = article_title.replace('#','')
+	article_title = re.sub('[/\\:|{}^#"]', '', article_title)
 	return article_title
 
 
