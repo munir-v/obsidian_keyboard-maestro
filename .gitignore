@@ -6,3 +6,6 @@ venv/
 part1.txt
 part2.txt
 kindle_exports.json
+
+# Authy names
+authy_account_names.txt
