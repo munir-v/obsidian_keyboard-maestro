@@ -4,16 +4,12 @@ import json
 from pprint import pprint
 import datetime
 
-# file_loc1 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part1.txt')
-# file_loc2 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part2.txt')
+file_loc1 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part1.txt')
 json_file_loc = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/kindle_exports.json')
 old_exports = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/last_kindle_exports.txt')
 
-# with open(file_loc1, "r") as f:
-#     file1 = f.readlines()
-
-# with open(file_loc2, "r") as f:
-#     file2 = f.readlines()
+with open(file_loc1, "r") as f:
+    file1 = f.readlines()
 
 with open(json_file_loc) as j:
     json_file = json.load(j)
@@ -47,7 +43,7 @@ def get_quotes_and_vocab(file):
 def clean_up_vocab(vocab):
     clean_vocab_list = []
     for line in vocab:
-        clean_vocab = re.sub('[(){}\[\]<>;./\\+=_*&^%$#@!~`:\"]', '', line)
+        clean_vocab = re.sub('[(){}\[\]<>;./\\+=_*&^%$#@!~`:\,"]', '', line)
         clean_vocab = clean_vocab.capitalize()
         clean_vocab_list.append(clean_vocab)
     return list(set(clean_vocab_list)) # remove duplicates
@@ -83,8 +79,6 @@ def main():
     new_quotes_and_vocab = get_unique_quotes_vocab(title,notes,vocab)
     notes = new_quotes_and_vocab[0]
     vocab = new_quotes_and_vocab[1]
-    for word in vocab: # add vocab to obsidian md file
-        os.system('echo "' + word + '" >> "$HOME/Documents/Main Obsidian Vault/Home/Anki Vocab.md"')
     print('\n\n'.join(notes))
 
 main()
