@@ -2,16 +2,18 @@ import os
 import re
 import json
 from pprint import pprint
+import datetime
 
-file_loc1 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part1.txt')
-file_loc2 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part2.txt')
+# file_loc1 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part1.txt')
+# file_loc2 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part2.txt')
 json_file_loc = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/kindle_exports.json')
+old_exports = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/last_kindle_exports.txt')
 
-with open(file_loc1, "r") as f:
-    file1 = f.readlines()
+# with open(file_loc1, "r") as f:
+#     file1 = f.readlines()
 
-with open(file_loc2, "r") as f:
-    file2 = f.readlines()
+# with open(file_loc2, "r") as f:
+#     file2 = f.readlines()
 
 with open(json_file_loc) as j:
     json_file = json.load(j)
@@ -29,9 +31,11 @@ def get_quotes_and_vocab(file):
             if i+2<len(file) and len(p2.findall(file[i+2])) > 0: # if there is a note
                 note = file[i+3].strip()
                 i+=2
+            if "Anki" in note or "anki" in note:
+                highlight += ' #ankify🚨 '
             if highlight.count(' ') > 2 or len(note) > 0: # highlight more than 2 words or note not empty
                 if len(note)>0:
-                    highlight = highlight + ';; ' + note
+                    highlight += ';; ' + note
                 notes_list.append(highlight)
             else:
                 vocab_list.append(highlight)
@@ -60,6 +64,9 @@ def get_unique_quotes_vocab(title,notes,vocab):
         new_notes = tuple(notes)
         json_file[title] = new_notes
     json_file["vocab"] = tuple(json_file["vocab"]) + new_vocab
+    with open(old_exports,'a') as f: # save old exports
+        f.write(str(datetime.datetime.now()) + '\n\nVocab:\n' + 
+        '\n'.join(new_vocab) + '\n\nNotes:\n' + '\n\n'.join(notes))
     with open(json_file_loc, "w") as jf: # write notes and vocab to json file
         json.dump(json_file,jf)
     for word in new_vocab: # add vocab to obsidian md file
@@ -67,20 +74,17 @@ def get_unique_quotes_vocab(title,notes,vocab):
     return new_notes, new_vocab
 
 def main():
-    title = file1[1].strip()
-    quotes_and_vocab = get_quotes_and_vocab(file2)
+    input = str(os.environ["KMVAR_Local_Clipboard"]).split('\n')
+    title = input[1].strip()
+    quotes_and_vocab = get_quotes_and_vocab(input)
     notes = quotes_and_vocab[0]
     vocab = quotes_and_vocab[1]
     vocab = clean_up_vocab(vocab)
     new_quotes_and_vocab = get_unique_quotes_vocab(title,notes,vocab)
     notes = new_quotes_and_vocab[0]
     vocab = new_quotes_and_vocab[1]
-    print('\n notes:')
-    pprint(notes)
-    print('\n vocab:')
-    pprint(vocab)
+    for word in vocab: # add vocab to obsidian md file
+        os.system('echo "' + word + '" >> "$HOME/Documents/Main Obsidian Vault/Home/Anki Vocab.md"')
+    print('\n\n'.join(notes))
 
-# main()
-
-# todo
-# add ankify tag
+main()
