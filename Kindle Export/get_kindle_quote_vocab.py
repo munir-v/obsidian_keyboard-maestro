@@ -46,22 +46,24 @@ def clean_up_vocab(vocab):
         clean_vocab = re.sub('[(){}\[\]<>;./\\+=_*&^%$#@!~`:\"]', '', line)
         clean_vocab = clean_vocab.capitalize()
         clean_vocab_list.append(clean_vocab)
-    return [set(clean_vocab_list)] # remove duplicates
+    return list(set(clean_vocab_list)) # remove duplicates
 
 def get_unique_quotes_vocab(title,notes,vocab):
     is_old_book = title in json_file
-    new_vocab = [x for x in vocab if x not in json_file["vocab"]]
+    if not "vocab" in json_file:
+        json_file["vocab"] = ()
+    new_vocab = tuple([x for x in vocab if x not in json_file["vocab"]])
     if is_old_book:
-        new_notes = [x for x in notes if x not in json_file[title]]
-        json_file[title] = json_file[title] + new_notes
+        new_notes = tuple([x for x in notes if x not in json_file[title]])
+        json_file[title] = tuple(json_file[title]) + new_notes
     else:
-        new_notes = notes
+        new_notes = tuple(notes)
         json_file[title] = new_notes
-    json_file["vocab"] = json_file["vocab"] + new_vocab
-    print('\n list(json_file):')
-    print(list(json_file))
-    # with open(json_file_loc, "w") as j:
-    #     json.dump(list(json_file),j)
+    json_file["vocab"] = tuple(json_file["vocab"]) + new_vocab
+    with open(json_file_loc, "w") as jf: # write notes and vocab to json file
+        json.dump(json_file,jf)
+    for word in new_vocab: # add vocab to obsidian md file
+        os.system('echo "' + word + '" >> "$HOME/Documents/Main Obsidian Vault/Home/Anki Vocab.md"')
     return new_notes, new_vocab
 
 def main():
@@ -73,14 +75,12 @@ def main():
     new_quotes_and_vocab = get_unique_quotes_vocab(title,notes,vocab)
     notes = new_quotes_and_vocab[0]
     vocab = new_quotes_and_vocab[1]
-    # print('\n notes:')
-    # pprint(notes)
-    # print('\n vocab:')
-    # pprint(vocab)
+    print('\n notes:')
+    pprint(notes)
+    print('\n vocab:')
+    pprint(vocab)
 
-main()
-
-
+# main()
 
 # todo
 # add ankify tag
