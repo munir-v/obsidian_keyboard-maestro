@@ -3,7 +3,6 @@ import os
 from pathlib import Path #used to get working directory
 
 todolist_path = Path(os.path.expanduser('~/Documents/Main Obsidian Vault/To-do List.md'))
-# todolist_path = Path(os.path.expanduser('~/Downloads/To-do List.md'))
 
 def add_todo_item():
 	file = []
