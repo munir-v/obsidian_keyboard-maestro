@@ -1,3 +1,3 @@
 # obsidian_keyboard-maestro
 
-Scripts for Keyboard Maestro and Obsidian.
+Personal scripts for Keyboard Maestro and Obsidian automations.
