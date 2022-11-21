@@ -9,7 +9,7 @@ def add_todo_item():
 	with open(todolist_path, "r") as f:
 		file = f.readlines()
 		for i, line in enumerate(file):
-			if "### At Computer" in line:
+			if "### To-do" in line:
 				todo_item = str(os.environ["KMVAR_Item"])
 				file.insert(i+1,"- [ ] " + todo_item + "\n")
 				break
