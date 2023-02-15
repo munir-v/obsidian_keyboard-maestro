@@ -3,9 +3,11 @@
 import os
 from pathlib import Path #used to get working directory
 import os
+import sys # debugging
+
 
 # read each line of file
-	# if line contains ;; ... ;; split into body, title, and tags
+	# if line contains ;; ... ;; split into body, tags, and title
 		# create new note file as title.md
 		# add body and metadata with tags
 		# delete line in parent file, replace with ![[title]]
@@ -20,8 +22,8 @@ def create_notes(title, author, meta):
 	file_array = []
 	with open(target_file, "r") as f:
 		file_array = f.readlines()
-		for index, line in enumerate(file_array): 
-			if ";;" in line: #for each line with ;; in it
+		for i, line in enumerate(file_array): 
+			if line.count(";;") == 2: #for each line with ;;tags;; in it
 				str = line.split(";;") # split into body, tags, and title
 				child_body = str[0].strip()
 				child_tags = str[1].strip()
@@ -35,11 +37,13 @@ def create_notes(title, author, meta):
 				new_metadata = notes_metadata.replace("Topics:","Topics: " + child_tags) #add tags to metadata
 
 				child_note_path = current_path / Path(child_title + ".md")
-				with open(child_note_path, "x") as new_f: #create new file
-					new_f.write(child_body) # add the body of the note
-					new_f.write("\n\n\n" + new_metadata) # add metadata
+				eprint(child_note_path)
+				if not child_note_path.is_file():
+					with open(child_note_path, "x") as new_f: #create new file
+						new_f.write(child_body) # add the body of the note
+						new_f.write("\n\n\n" + new_metadata) # add metadata
 				
-				file_array[index] = "![[" + child_title + "]]" #update line in parent note
+					file_array[i] = "![[" + child_title + "]]" #update line in parent note
 
 	with open(target_file, "w") as f: # write changes to the original file
 		f.writelines(file_array)
@@ -54,6 +58,10 @@ def debug(text,num):
 	path = os.path.expanduser('~/Documents/Main Obsidian Vault/TEXT') + str(num) + '.txt'
 	with open(path, "x") as f:
 		f.write(text)
+
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
 
 note_title = str(os.environ["KMVAR_NoteTitle"]) + ".md"
 author = str(os.environ["KMVAR_AuthorName"])
