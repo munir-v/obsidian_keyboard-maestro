@@ -1,15 +1,11 @@
 import openai
 import os
-import Constants
+import requests
+import constants
 
 # Set up the OpenAI API client
-api_key = Constants.GPT_API_KEY
+api_key = constants.GPT_API_KEY
 openai.api_key = api_key
-
-
-# Use the API key in your code
-response = requests.get('https://api.example.com', headers={'Authorization': f'Bearer {api_key}'})
-
 
 def ask_gpt(question):
     response = openai.Completion.create(
