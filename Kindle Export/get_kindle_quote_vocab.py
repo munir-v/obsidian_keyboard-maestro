@@ -17,8 +17,8 @@ with open(json_file_loc) as j:
 def get_quotes_and_vocab(file):
     notes_list = []
     vocab_list = []
-    p1 = re.compile(r'Highlight\(\w+\) - Location \d+')
-    p2 = re.compile(r'Note - Location \d+')
+    p1 = re.compile(r'Highlight.+Location \d+')
+    p2 = re.compile(r'Note.+Location \d+')
     i = 2
     while (i<len(file)):
         if len(p1.findall(file[i])) > 0:
