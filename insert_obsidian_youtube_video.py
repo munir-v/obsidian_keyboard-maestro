@@ -2,7 +2,6 @@
 import os
 from pathlib import Path
 from string import Template #used to get working directory
-import os
 
 audio_page = int(os.environ["KMVAR_Podcasts"])
 video_title = str(os.environ["KMVAR_VideoTitle"])
