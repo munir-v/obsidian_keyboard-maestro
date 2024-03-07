@@ -2,6 +2,7 @@
 import os
 import re
 
+# caption_file = "/Users/munirv3/Downloads/Dr. Karen Parker： The Causes & Treatments for Autism.webm'.en.vtt"
 caption_file = str(os.environ["KMVAR_CaptionFile"])
 
 # List of substrings that if found in a line, exclude that line
@@ -11,7 +12,7 @@ bad_words = ['-->', '</c>']
 unique_lines = set()
 
 # Open the original .vtt file to read and the final file to write simultaneously
-with open(caption_file, 'r') as oldfile, open('captions.txt', 'w') as newfile:
+with open(caption_file, 'r') as oldfile, open(os.path.expanduser('~/Downloads/captions.txt'), 'w') as newfile:
     for line in oldfile:
         # Check if the line does not contain any of the bad words
         if not any(bad_word in line for bad_word in bad_words):
