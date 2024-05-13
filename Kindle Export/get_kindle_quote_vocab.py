@@ -1,14 +1,13 @@
 import os
 import re
 import json
-from pprint import pprint
 import datetime
 
-file_loc1 = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part1.txt')
+testing = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part1.txt')
 json_file_loc = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/kindle_exports.json')
 old_exports = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/last_kindle_exports.txt')
 
-with open(file_loc1, "r") as f:
+with open(testing, "r") as f:
     file1 = f.readlines()
 
 with open(json_file_loc) as j:
@@ -66,8 +65,9 @@ def get_unique_quotes_vocab(title,notes,vocab):
     with open(json_file_loc, "w") as jf: # write notes and vocab to json file
         json.dump(json_file,jf)
     for word in new_vocab: # add vocab to obsidian md file
-        os.system('echo "' + word + '" >> "$HOME/Documents/Main Obsidian Vault/Home/000 Anki Vocab.md"')
+        os.system('echo "' + word + '" >> "$HOME' + '/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian Vault' + '/Home/000 Anki Vocab.md"')
     return new_notes, new_vocab
+
 
 def main():
     input = str(os.environ["KMVAR_Local_Clipboard"]).split('\n')
