@@ -5,6 +5,7 @@ from pathlib import Path #used to get working directory
 import re
 
 articles_path = Path(os.path.expanduser('~/Documents/Main Obsidian Vault/Home/025 Articles.md'))
+# articles_path = Path(os.path.expanduser('~/Documents/Main Obsidian Vault/Home/025 Articles.md'))
 
 def get_headers():
 	with open(articles_path, "r") as f:
