@@ -2,14 +2,15 @@
 import os
 from pathlib import Path
 from string import Template #used to get working directory
+import constants
 
 audio_page = int(os.environ["KMVAR_Podcasts"])
 video_title = str(os.environ["KMVAR_VideoTitle"])
 
 if audio_page == 1:
-	audio_path = Path(os.path.expanduser('~/Documents/Main Obsidian Vault/Home/015 Podcasts and Audio.md'))
+	audio_path = Path(os.path.expanduser(constants.OBSIDIAN_VAULT_PATH + '/Home/015 Podcasts and Audio.md'))
 else:
-	audio_path = Path(os.path.expanduser("~/Documents/Main Obsidian Vault/Home/020 Baha'i Audio.md"))
+	audio_path = Path(os.path.expanduser(constants.OBSIDIAN_VAULT_PATH + "/Home/020 Baha'i Audio.md"))
 
 def get_headers():
 	with open(audio_path, "r") as f:
@@ -60,7 +61,7 @@ def update_podcast_page(video_title):
 		f.writelines(file)
 
 def make_new_podcast_page(video_title):
-	base_path = os.path.expanduser('~/Documents/Main Obsidian Vault/' + video_title + ".md")
+	base_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH + video_title + ".md")
 	with open(base_path, "x") as f: # write new file
 		metadata = str(os.environ["KMVAR_Metadata"])
 		f.write(metadata)
@@ -82,7 +83,7 @@ def filter_video_title(video_title): # remove illegal symbols
 	return video_title
 
 def get_link(file_name):
-	vault_name = "Main Obsidian Vault"
+	vault_name = "Obsidian Vault"
 	vault_name = vault_name.replace(' ','%20')
 	file_name = file_name.replace(' ','%20')
 

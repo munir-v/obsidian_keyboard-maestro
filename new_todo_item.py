@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import os
 from pathlib import Path #used to get working directory
+import constants
 
-todolist_path = Path(os.path.expanduser('~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian Vault/To-do List.md'))
-# todolist_path = Path(os.path.expanduser('~/Documents/Main Obsidian Vault/To-do List.md'))
+todolist_path = Path(os.path.expanduser(constants.OBSIDIAN_VAULT_PATH + 'To-do List.md'))
 
 def add_todo_item():
 	file = []

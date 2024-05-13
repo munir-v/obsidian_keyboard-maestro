@@ -54,12 +54,6 @@ def printResult():
 			print(line, end='')
 		print()
 
-def debug(text,num):
-	path = os.path.expanduser('~/Documents/Main Obsidian Vault/TEXT') + str(num) + '.txt'
-	with open(path, "x") as f:
-		f.write(text)
-
-
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
