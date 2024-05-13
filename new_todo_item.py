@@ -3,7 +3,7 @@ import os
 from pathlib import Path #used to get working directory
 import constants
 
-todolist_path = Path(os.path.expanduser(constants.OBSIDIAN_VAULT_PATH + 'To-do List.md'))
+todolist_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + '/To-do List.md'
 
 def add_todo_item():
 	file = []
