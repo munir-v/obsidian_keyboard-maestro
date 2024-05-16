@@ -37,7 +37,7 @@ def create_notes(title, author, meta):
 
 				new_metadata = notes_metadata.replace("Topics:","Topics: " + child_tags) #add tags to metadata
 
-				child_note_path = Path(constants.OBSIDIAN_VAULT_PATH) / Path(child_title + ".md")
+				child_note_path = Path(os.path.expanduser(constants.OBSIDIAN_VAULT_PATH)) / Path(child_title + ".md")
 				eprint(child_note_path)
 				if not child_note_path.is_file():
 					with open(child_note_path, "x") as new_f: #create new file
@@ -62,7 +62,7 @@ note_title = str(os.environ["KMVAR_NoteTitle"]) + ".md"
 author = str(os.environ["KMVAR_AuthorName"])
 notes_metadata = str(os.environ["KMVAR_Metadata"])
 
-target_file = Path(constants.OBSIDIAN_VAULT_PATH) / Path(note_title) #full note directory
+target_file = Path(os.path.expanduser(constants.OBSIDIAN_VAULT_PATH)) / Path(note_title) #full note directory
 
 create_notes(target_file, author, notes_metadata)
 # printResult()

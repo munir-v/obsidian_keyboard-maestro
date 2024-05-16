@@ -66,7 +66,7 @@ def get_unique_quotes_vocab(title,notes,vocab):
     with open(json_file_loc, "w") as jf: # write notes and vocab to json file
         json.dump(json_file,jf)
     for word in new_vocab: # add vocab to obsidian md file
-        os.system('echo "' + word + '" >> "$HOME' + constants.OBSIDIAN_VAULT_PATH + '/Home/000 Anki Vocab.md"')
+        os.system('echo "' + word + '" >> "$HOME' + os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + '/Home/000 Anki Vocab.md"')
     return new_notes, new_vocab
 
 
