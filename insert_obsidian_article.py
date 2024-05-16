@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 from string import Template
 import os
-from pathlib import Path #used to get working directory
 import re
 import constants
 
-articles_path = Path(os.path.expanduser(constants.OBSIDIAN_VAULT_PATH + '/Home/025 Articles.md'))
+articles_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + '/Home/025 Articles.md'
 
 def get_headers():
 	with open(articles_path, "r") as f:
@@ -56,7 +55,7 @@ def update_article_page(article_title):
 		f.writelines(file)
 
 def make_new_article(article_title):
-	base_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH + article_title + '.md')
+	base_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + article_title + '.md'
 	with open(base_path, "x") as f: # write new file
 		metadata = str(os.environ["KMVAR_Metadata"])
 		f.write(metadata)

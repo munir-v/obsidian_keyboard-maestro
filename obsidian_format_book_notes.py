@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-from pathlib import Path #used to get working directory
-import os
 import sys # debugging
 import constants
 
@@ -37,7 +35,7 @@ def create_notes(title, author, meta):
 
 				new_metadata = notes_metadata.replace("Topics:","Topics: " + child_tags) #add tags to metadata
 
-				child_note_path = Path(os.path.expanduser(constants.OBSIDIAN_VAULT_PATH)) / Path(child_title + ".md")
+				child_note_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + "/" + child_title + ".md"
 				eprint(child_note_path)
 				if not child_note_path.is_file():
 					with open(child_note_path, "x") as new_f: #create new file
@@ -62,7 +60,7 @@ note_title = str(os.environ["KMVAR_NoteTitle"]) + ".md"
 author = str(os.environ["KMVAR_AuthorName"])
 notes_metadata = str(os.environ["KMVAR_Metadata"])
 
-target_file = Path(os.path.expanduser(constants.OBSIDIAN_VAULT_PATH)) / Path(note_title) #full note directory
+target_file = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + "/" + note_title #full note directory
 
 create_notes(target_file, author, notes_metadata)
 # printResult()
