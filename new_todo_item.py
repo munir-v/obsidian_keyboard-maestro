@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import os
-from pathlib import Path #used to get working directory
 import constants
 
 todolist_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + '/To-do List.md'
