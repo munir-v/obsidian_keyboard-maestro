@@ -2,15 +2,6 @@ venv/
 .vscode/
 .DS_Store
 
-# Kindle export
-part1.txt
-part2.txt
-kindle_exports.json
-Kindle Export/last_kindle_exports.txt
-last_kindle_exports.txt
-
-# Authy names
-authy_account_names.txt
-Authy Names/authy_account_names.txt
-
+*.txt
+*.json
 constants.py
