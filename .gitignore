@@ -2,7 +2,6 @@ venv/
 __pycache__/
 .vscode/
 .DS_Store
-
 *.txt
 *.json
 constants.py

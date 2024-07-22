@@ -1,6 +1,5 @@
 import openai
 import os
-import requests
 import constants
 
 # Set up the OpenAI API client
