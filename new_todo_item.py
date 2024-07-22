@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import os
 import constants
 
@@ -8,7 +8,7 @@ def add_todo_item():
 	file = []
 	with open(todolist_path, "r") as f:
 		file = f.readlines()
-		todo_item = str(os.environ["KMVAR_Item"])
+		todo_item = str(os.environ["KMVAR_local_Item"])
 		for i, line in enumerate(file):
 			if "### To-do" in line:
 				file.insert(i+1,"- [ ] " + todo_item + "\n")
