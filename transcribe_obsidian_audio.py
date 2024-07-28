@@ -54,11 +54,11 @@ def transcribe_and_append(transcribe_audio, target_file):
 
 def delete_unused_audio():
     # Path to the Obsidian Vault
-    vault_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + "/" + audio_file
+    vault_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH)
     daily_notes_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + "/Daily Notes"
 
     # Supported audio file extensions
-    audio_extensions = ['.mp3', '.wav', '.m4a']
+    audio_extensions = ['.mp3', '.wav', '.m4a', '.webm']
 
     # Find all Markdown files in the Daily Notes folder
     md_files = []
@@ -76,7 +76,7 @@ def delete_unused_audio():
 
     # Extract all referenced audio files from the Markdown files
     referenced_audio_files = set()
-    audio_pattern = re.compile(r'!\[\[([^\]]+\.(?:mp3|wav|ogg|flac|aac|m4a|wma))\]\]')
+    audio_pattern = re.compile(r'!\[\[([^\]]+\.(?:mp3|wav|ogg|flac|aac|m4a|wma|webm))\]\]')
 
     for md_file in md_files:
         with open(md_file, 'r', encoding='utf-8') as file:
