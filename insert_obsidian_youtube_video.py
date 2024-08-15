@@ -7,9 +7,9 @@ audio_page = int(os.environ["KMVAR_Podcasts"])
 video_title = str(os.environ["KMVAR_VideoTitle"])
 
 if audio_page == 1:
-	audio_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + '/Home/015 Podcasts and Audio.md'
+	audio_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + '/Home/039 Podcasts and Audio.md'
 else:
-	audio_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + "/Home/020 Baha'i Audio.md"
+	audio_path = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + "/Home/035 Baha'i Audio.md"
 
 def get_headers():
 	with open(audio_path, "r") as f:

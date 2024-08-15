@@ -7,8 +7,6 @@ if len(sys.argv) != 2:
     print("Usage: clean_captions.py <caption_file>")
     sys.exit(1)
 
-# caption_file = "/Users/munirv3/Downloads/Dr. Karen Parker： The Causes & Treatments for Autism.webm'.en.vtt"
-# caption_file = str(os.environ["KMVAR_CaptionFile"])
 caption_file = sys.argv[1]
 base_filename = os.path.splitext(os.path.basename(caption_file))[0]
 output_file = os.path.expanduser(f'~/Downloads/{base_filename} cleaned.txt')
