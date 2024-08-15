@@ -4,18 +4,13 @@ import re
 import constants
 import whisper
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from send2trash import send2trash
 
 
-def transcribe_audio(file_path): 
-    model = whisper.load_model("small") 
-    # start_time = time.time()
+def transcribe_audio(file_path):
+    model = whisper.load_model("small")
     result = model.transcribe(file_path)
-    # end_time = time.time()
-    # time_taken = end_time - start_time
-    # print(result["text"])
-    # print(f"Time taken: {time_taken} seconds")
     return result["text"].strip()
 
 
@@ -39,17 +34,24 @@ def transcribe_and_append(transcribe_audio, target_file):
             new_audio_path = os.path.join(os.path.dirname(audio_path), new_file_name)
             os.rename(audio_path, new_audio_path)
             content = content.replace(audio_file, new_file_name)
+            
+            # Write the updated content with the new file name before transcription
+            with open(target_file, "w") as f:
+                f.write(content)
+
+            # Now transcribe the audio and collect the transcription
             transcription = transcribe_audio(new_audio_path)
             transcriptions.append(transcription)
         else:
             print(f"File not found: {audio_path}")
 
-    with open(target_file, "w") as f:
-        f.write(content)
-
+    # Append transcriptions to the file after all renaming and transcriptions are done
     with open(target_file, "a") as f:
         for transcription in transcriptions:
             f.write(transcription + "\n")
+
+    # Delay to ensure file system changes are registered
+    time.sleep(2)  # Adjust this as needed
 
 
 def delete_unused_audio():
@@ -85,13 +87,17 @@ def delete_unused_audio():
             for match in matches:
                 referenced_audio_files.add(os.path.normpath(os.path.join(vault_path, match)))
 
+    # Get current time
+    current_time = datetime.now()
+
     # Move audio files not referenced in any Markdown file to Trash
     for audio_file in audio_files:
-        if audio_file not in referenced_audio_files:
+        # Check if the file has been modified in the last few seconds
+        last_modified_time = datetime.fromtimestamp(os.path.getmtime(audio_file))
+        if audio_file not in referenced_audio_files and current_time - last_modified_time > timedelta(seconds=5):
             send2trash(audio_file)
             print(f"Moved to Trash: {audio_file}")
 
-# target_file = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + "/" + "Daily Notes/2024-07-22-Mon.md"
 target_file = os.path.expanduser(constants.OBSIDIAN_VAULT_PATH) + "/" + str(os.environ["KMVAR_instance_NoteTitle"])
 transcribe_and_append(transcribe_audio, target_file)
 delete_unused_audio()
