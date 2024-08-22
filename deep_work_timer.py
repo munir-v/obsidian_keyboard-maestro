@@ -33,13 +33,23 @@ else:
             sheet.cell(row=row, column=column_index).value = time_value
             break
 
+# Iterate through columns to add the sum formula in the first row under "Total" columns
+for col_idx in range(1, sheet.max_column + 1):
+    cell_value = sheet.cell(row=1, column=col_idx).value
+    if cell_value and "Total" in cell_value:
+        previous_column_index = col_idx - 1
+        if previous_column_index > 0:
+            # Target the first row under the header (row 2)
+            sum_range = f"{sheet.cell(row=2, column=previous_column_index).coordinate}:{sheet.cell(row=sheet.max_row, column=previous_column_index).coordinate}"
+            sheet.cell(row=2, column=col_idx).value = f"=SUM({sum_range})"
+
 # Save the workbook
 workbook.save(filename=file_path)
 
 # Load the dataframe to get column headers
 df = pd.read_excel(file_path)
 
-# Get a list of columns that do not have headers "Date" or "Total"
+# Get a list of columns that do not have headers containing "Date", "Total", or "Other"
 columns = [col for col in df.columns if "Date" not in col and "Total" not in col and "Other" not in col]
 
 # Print the list of columns
