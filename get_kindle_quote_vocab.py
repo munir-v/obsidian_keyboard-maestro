@@ -4,9 +4,9 @@ import json
 import datetime
 import constants
 
-testing = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/part1.txt')
-json_file_loc = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/kindle_exports.json')
-old_exports = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Kindle Export/last_kindle_exports.txt')
+testing = os.path.expanduser('~/Documents/Coding-Projects/Keyboard-Maestro-and-Obsidian/Kindle Export/part1.txt')
+json_file_loc = os.path.expanduser('~/Documents/Coding-Projects/Keyboard-Maestro-and-Obsidian/Kindle Export/kindle_exports.json')
+old_exports = os.path.expanduser('~/Documents/Coding-Projects/Keyboard-Maestro-and-Obsidian/Kindle Export/last_kindle_exports.txt')
 
 with open(testing, "r") as f:
     file1 = f.readlines()

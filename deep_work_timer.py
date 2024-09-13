@@ -8,7 +8,7 @@ time_value = int(os.environ["KMVAR_DeepWorkTimeCompleted"])
 column_name = os.environ["KMVAR_local_categorySelection"]
 
 # Load the Excel file
-file_path = os.path.expanduser("~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Deep Work Time Tracker.xlsx")
+file_path = os.path.expanduser("~/Documents/Coding-Projects/Keyboard-Maestro-and-Obsidian/Deep Work Time Tracker.xlsx")
 workbook = load_workbook(filename=file_path)
 sheet = workbook.active
 

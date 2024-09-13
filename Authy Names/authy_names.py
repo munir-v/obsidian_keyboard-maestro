@@ -1,7 +1,7 @@
 import json
 import os
 
-authy_account_names_loc = os.path.expanduser('~/Documents/Coding Projects/Keyboard Maestro and Obsidian/Authy Names/authy_account_names.txt')
+authy_account_names_loc = os.path.expanduser('~/Documents/Coding-Projects/Keyboard-Maestro-and-Obsidian/Authy Names/authy_account_names.txt')
 
 # def get_json_file_loc():
 #     path = os.path.expanduser('~/Downloads')
