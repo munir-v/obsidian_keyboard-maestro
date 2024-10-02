@@ -1,3 +1,4 @@
+from openpyxl.utils import datetime as openpyxl_datetime
 import os
 import pandas as pd
 from openpyxl import load_workbook
@@ -26,12 +27,16 @@ else:
     date_column_index = column_index - 1
 
     # Find the first empty row in the specified column
-    for row in range(2, sheet.max_row + 2):
-        if sheet.cell(row=row, column=column_index).value is None:
-            # Insert the time and date
-            sheet.cell(row=row, column=date_column_index).value = datetime.now().strftime("%m/%d/%Y %H:%M")
-            sheet.cell(row=row, column=column_index).value = time_value
-            break
+
+for row in range(2, sheet.max_row + 2):
+    if sheet.cell(row=row, column=column_index).value is None:
+        # Insert the current date and time as a datetime object (Excel will interpret this as a date)
+        sheet.cell(row=row, column=date_column_index).value = datetime.now()
+        
+        # Insert the time value into the column
+        sheet.cell(row=row, column=column_index).value = time_value
+        break
+
 
 # Iterate through the sheet to find each "Total" column
 for col_idx in range(1, sheet.max_column + 1):
