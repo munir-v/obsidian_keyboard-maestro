@@ -3,9 +3,9 @@
 import os
 
 def make_cloze():
-	cloze_counter = int(os.environ["KMVAR_StartFromCloze"])
+	cloze_counter = int(os.environ["KMVAR_local_StartFromCloze"])
 
-	input = str(os.environ["KMVAR_Input"])
+	input = str(os.environ["KMVAR_local_Input"])
 	input.strip()
 	input_words = input.split()
 
@@ -15,7 +15,7 @@ def make_cloze():
 	input_words.insert(0,'{{c' + str(cloze_counter) + '::')
 
 	for i, word in enumerate(input_words):
-		words_per_cloze = int(os.environ["KMVAR_Words"])
+		words_per_cloze = int(os.environ["KMVAR_local_Words"])
 		if i>1 and i % (words_per_cloze + 1) == 0:
 			cloze_counter += 1
 			input_words.insert(i,'}} {{c' + str(cloze_counter) + '::')
