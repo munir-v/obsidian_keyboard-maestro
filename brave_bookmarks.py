@@ -1,7 +1,7 @@
 import json
 import os
 
-json_file_loc = os.path.expanduser('~/Library/Application Support/BraveSoftware/Brave-Browser/Default/Bookmarks')
+json_file_loc = os.path.expanduser(os.environ["KMVAR_local_BookmarksFile"])
 
 def print_bookmarks():
     with open(json_file_loc, "r") as j:
